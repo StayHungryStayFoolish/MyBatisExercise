@@ -24,4 +24,18 @@
 
 #### 执行 mapper 文件
 
-1. 
+1. 注入全局配置文件
+
+```java
+    String resource = "SqlMapConfig.xml";
+    InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(resource);
+    sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+```
+
+2. 使用 SqlSession 打开数据库连接，并使用 statementId 解析对应的 mapper 文件，解析 sql 语句，使用 JDBC 对数据库操作
+
+```java
+    SqlSession sqlSession = sqlSessionFactory.openSession();
+    String statementId = "test.findUserById";
+    sqlSession.selectOne(statementId, id);
+```
