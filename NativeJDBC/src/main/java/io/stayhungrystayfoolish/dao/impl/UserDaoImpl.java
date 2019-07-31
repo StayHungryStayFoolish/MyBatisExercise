@@ -60,4 +60,9 @@ public class UserDaoImpl implements UserDao {
         }
         return null;
     }
+
+    @Override
+    public User queryUserById(Long id) {
+        return null;
+    }
 }

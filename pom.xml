@@ -20,10 +20,6 @@
             </plugin>
         </plugins>
     </build>
-    <modules>
-        <module>MyBatisCustomize</module>
-        <module>NativeJDBC</module>
-    </modules>
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
