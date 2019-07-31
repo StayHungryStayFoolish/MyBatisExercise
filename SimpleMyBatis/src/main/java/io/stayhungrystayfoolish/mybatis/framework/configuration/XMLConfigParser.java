@@ -16,19 +16,19 @@ import java.util.Properties;
  */
 public class XMLConfigParser {
 
-    private DatasourceConfiguration datasourceConfiguration;
+    private Configuration configuration;
 
-    public XMLConfigParser(DatasourceConfiguration datasourceConfiguration) {
-        this.datasourceConfiguration = datasourceConfiguration;
+    public XMLConfigParser(Configuration configuration) {
+        this.configuration = configuration;
     }
 
-    public DatasourceConfiguration parseConfiguration(Element element) {
+    public Configuration parseConfiguration(Element element) {
         // SqlMapConfig.xml 的 <environments> 标签
         parseEnvironments(element.element("environments"));
         // SqlMapConfig.xml 的多个 <mappers> 标签
         parseMappers(element.element("mappers"));
 
-        return datasourceConfiguration;
+        return configuration;
     }
 
     /**
@@ -40,13 +40,24 @@ public class XMLConfigParser {
         List<Element> elementList = environments.elements("environment");
         for (Element element : elementList) {
             String envId = element.attributeValue("id");
-            // environments 的 default 标签的值必须和 environment 的 id 值相等。
+            // environments 的 default 标签的值必须和 environment 的 id 值相等才能解析数据库配置
             // XMLConfigBuilder 源码的 296，428 行
             if (null != defaultId && null != envId ) {
                 if (defaultId.equals(envId)) {
                     parseDataSource(element.element("dataSource"));
                 }
             }
+        }
+    }
+
+    /**
+     * 解析 <mappers> 标签集合
+     * @param mappers <mappers> 集合
+     */
+    private void parseMappers(Element mappers) {
+        List<Element> elements = mappers.elements("mapper");
+        for (Element mapperEle : elements) {
+            parseMapper(mapperEle);
         }
     }
 
@@ -77,18 +88,7 @@ public class XMLConfigParser {
             dataSource.setUsername(properties.getProperty("username"));
             dataSource.setPassword(properties.getProperty("password"));
         }
-        datasourceConfiguration.setDataSource(dataSource);
-    }
-
-    /**
-     * 解析 <mappers> 标签集合
-     * @param mappers <mappers> 集合
-     */
-    private void parseMappers(Element mappers) {
-        List<Element> elements = mappers.elements("mapper");
-        for (Element mapperEle : elements) {
-            parseMapper(mapperEle);
-        }
+        configuration.setDataSource(dataSource);
     }
 
     /**
@@ -102,7 +102,7 @@ public class XMLConfigParser {
         InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(resource);
         Document document = DocumentReader.createDocument(inputStream);
         // 构建 mapper 文件解析
-        XMLMapperParser xmlMapperParser = new XMLMapperParser(datasourceConfiguration);
+        XMLMapperParser xmlMapperParser = new XMLMapperParser(configuration);
         // 解析 mapper 文件
         xmlMapperParser.parse(document.getRootElement());
     }

@@ -1,6 +1,7 @@
 package io.stayhungrystayfoolish.mybatis.framework.session;
 
-import io.stayhungrystayfoolish.mybatis.framework.configuration.DatasourceConfiguration;
+import io.stayhungrystayfoolish.mybatis.framework.configuration.Configuration;
+import io.stayhungrystayfoolish.mybatis.framework.configuration.XMLConfigParser;
 import org.dom4j.Document;
 
 import java.io.InputStream;
@@ -14,10 +15,10 @@ import java.io.Reader;
 public class SqlSessionFactoryBuilder {
 
     // 全局配置文件、映射文件配置信息
-    private DatasourceConfiguration datasourceConfiguration;
+    private Configuration configuration;
 
     public SqlSessionFactoryBuilder() {
-        this.datasourceConfiguration = new DatasourceConfiguration();
+        this.configuration = new Configuration();
     }
 
     /**
@@ -26,8 +27,15 @@ public class SqlSessionFactoryBuilder {
      * @return SqlSessionFactory
      */
     public SqlSessionFactory build(InputStream inputStream) {
-        // 使用自定义 xml 路径的字节流，读取配置文件
+        // 解析全局配置文件，封装为 Configuration 对象
+        // 通过 InputStream 流对象，去创建 Document对象（dom4j）---此时没有针对xml文件中的语义进行解析
+        // DocumentReader---去加载InputStream流，创建Document对象的
         Document document = DocumentReader.createDocument(inputStream);
+        // 进行 mybatis 语义解析（全局配置文件语义解析、映射文件语义解析）
+        // XMLConfigParser---解析全局配置文件
+        // XMLMapperParser---解析全局配置文件
+        XMLConfigParser xmlConfigParser = new XMLConfigParser(configuration);
+        configuration = xmlConfigParser.parseConfiguration(document.getRootElement());
         return build();
     }
 
@@ -46,6 +54,6 @@ public class SqlSessionFactoryBuilder {
      * @return SqlSessionFactory
      */
     private SqlSessionFactory build() {
-        return new DefaultSqlSessionFactory(datasourceConfiguration);
+        return new DefaultSqlSessionFactory(configuration);
     }
 }

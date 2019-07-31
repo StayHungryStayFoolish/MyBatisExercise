@@ -1,6 +1,6 @@
 package io.stayhungrystayfoolish.mybatis.framework.session;
 
-import io.stayhungrystayfoolish.mybatis.framework.configuration.DatasourceConfiguration;
+import io.stayhungrystayfoolish.mybatis.framework.configuration.Configuration;
 
 /**
  * @Author: Created by bonismo@hotmail.com on 2019/7/31 3:24 PM
@@ -9,14 +9,14 @@ import io.stayhungrystayfoolish.mybatis.framework.configuration.DatasourceConfig
  */
 public class DefaultSqlSessionFactory implements SqlSessionFactory {
 
-    private DatasourceConfiguration datasourceConfiguration;
+    private Configuration configuration;
 
-    public DefaultSqlSessionFactory(DatasourceConfiguration datasourceConfiguration) {
-        this.datasourceConfiguration = datasourceConfiguration;
+    public DefaultSqlSessionFactory(Configuration configuration) {
+        this.configuration = configuration;
     }
 
     @Override
     public SqlSession openSession() {
-        return null;
+        return new DefaultSqlSession(configuration);
     }
 }
