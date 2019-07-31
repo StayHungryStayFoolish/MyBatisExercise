@@ -2,11 +2,19 @@ package io.stayhungrystayfoolish.dao.impl;
 
 import io.stayhungrystayfoolish.dao.UserDao;
 import io.stayhungrystayfoolish.domain.User;
+import io.stayhungrystayfoolish.mybatis.framework.session.SqlSession;
+import io.stayhungrystayfoolish.mybatis.framework.session.SqlSessionFactory;
 import io.stayhungrystayfoolish.util.Datasource;
 
 import java.sql.*;
 
 public class UserDaoImpl implements UserDao {
+
+    private final SqlSessionFactory sqlSessionFactory;
+
+    public UserDaoImpl(SqlSessionFactory sqlSessionFactory) {
+        this.sqlSessionFactory = sqlSessionFactory;
+    }
 
     @Override
     public Long createUser(User user) {
@@ -61,8 +69,15 @@ public class UserDaoImpl implements UserDao {
         return null;
     }
 
+    /**
+     * 使用手写 MyBatis 测试
+     * @param id id
+     * @return User
+     */
     @Override
-    public User queryUserById(Long id) {
-        return null;
+    public User queryUserById(User id) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        String statementId = "test.findUserById";
+        return sqlSession.selectOne(statementId, id);
     }
 }

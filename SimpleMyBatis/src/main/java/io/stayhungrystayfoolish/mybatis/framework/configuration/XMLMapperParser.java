@@ -31,7 +31,7 @@ public class XMLMapperParser {
     private void parseStatements(List<Element> elements) {
         /*
          *  解析 <select> 标签内容
-         *     <select id="findUserById" parameterType="com.kkb.mybatis.po.User" resultType="com.kkb.mybatis.po.User" statementType="prepared">
+         *     <select id="findUserById" parameterType="io.stayhungrystayfoolish.domain.User" resultType="com.kkb.mybatis.po.User" statementType="prepared">
          *         SELECT * FROM user WHERE id = #{id}
          *     </select>
          */

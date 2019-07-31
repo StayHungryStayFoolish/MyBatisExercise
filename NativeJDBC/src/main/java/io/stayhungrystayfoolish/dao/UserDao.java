@@ -8,5 +8,5 @@ public interface UserDao {
 
     User queryUserByName(String name);
 
-    User queryUserById(Long id);
+    User queryUserById(User id);
 }

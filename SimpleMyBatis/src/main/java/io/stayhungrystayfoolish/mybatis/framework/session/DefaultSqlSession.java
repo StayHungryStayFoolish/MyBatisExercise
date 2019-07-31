@@ -15,6 +15,7 @@ public class DefaultSqlSession implements SqlSession {
     private Configuration configuration;
 
     public DefaultSqlSession(Configuration configuration) {
+        this.configuration = configuration;
     }
 
     @Override

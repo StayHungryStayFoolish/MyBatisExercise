@@ -66,7 +66,7 @@ public class SimpleExecutor implements Executor {
                     // 根本不关系#{}中的名称到底是什么
                     preparedStatement.setObject(1, param);
                 } else {
-                    // TODO: 2019/7/31  Map和List的我们暂不处理，此处主要解决POJO类型
+                    // TODO: 2019/7/31  Map和List的暂不处理，此处主要解决POJO类型
                     // 遍历参数
                     for (int i = 0; i < parameterMappings.size(); i++) {
                         ParameterMapping parameterMapping = parameterMappings.get(i);
