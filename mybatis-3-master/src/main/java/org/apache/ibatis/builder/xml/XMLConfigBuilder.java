@@ -96,12 +96,13 @@ public class XMLConfigBuilder extends BaseBuilder {
    * @return
    */
   public Configuration parse() {
+    // 判断是否已经解析
     if (parsed) {
       throw new BuilderException("Each XMLConfigBuilder can only be used once.");
     }
     parsed = true;
     // parser.evalNode("/configuration")：通过XPATH解析器，解析configuration根节点
-    // 从configuration根节点开始解析，最终将解析出的内容封装到Configuration对象中
+    // 从 <configuration> 根节点开始解析，最终将解析出的内容封装到Configuration对象中
     parseConfiguration(parser.evalNode("/configuration"));
     return configuration;
   }
