@@ -30,17 +30,17 @@
             <version>4.12</version>
         </dependency>
         <!-- 使用项目内的 MyBatis 官方源码 -->
-        <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis</artifactId>
-            <version>3.5.2</version>
-        </dependency>
-
         <!--<dependency>-->
             <!--<groupId>org.mybatis</groupId>-->
             <!--<artifactId>mybatis</artifactId>-->
-            <!--<version>3.5.0-CUSTOMIZE-SNAPSHOT</version>-->
+            <!--<version>3.5.2</version>-->
         <!--</dependency>-->
+
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+            <version>3.5.0-CUSTOMIZE-SNAPSHOT</version>
+        </dependency>
 
         <dependency>
             <groupId>mysql</groupId>
