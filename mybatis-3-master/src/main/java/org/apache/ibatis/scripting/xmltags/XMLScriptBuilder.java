@@ -68,6 +68,7 @@ public class XMLScriptBuilder extends BaseBuilder {
         // ****将带有${}号的SQL信息封装到TextSqlNode
         // ****将带有#{}号的SQL信息封装到StaticTextSqlNode
         // ****将动态SQL标签中的SQL信息分别封装到不同的SqlNode中
+        // 未拼接 SQL 语句
         MixedSqlNode rootSqlNode = parseDynamicTags(context);
         SqlSource sqlSource = null;
         // 如果SQL中包含${}和动态SQL语句，则将SqlNode封装到DynamicSqlSource

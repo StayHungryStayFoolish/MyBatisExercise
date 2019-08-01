@@ -1,5 +1,6 @@
 # MyBatis 源码主流程 
 
+## 加载配置文件流程
 #### 创建 SqlSessionFactory
 
 ```
@@ -50,5 +51,62 @@
             
             创建 SqlSource，解析 SQL ，封装 SQL 语句（未参数绑定）和入参信息
             SqlSource sqlSource = langDriver.createSqlSource(configuration, context, parameterTypeClass);
-            
+```
+
+#### 创建 SqlSource，解析并封装 SQL 及入参信息
+
+```
+    LanguageDirver 接口 :
+        SqlSource createSqlSource(Configuration configuration, XNode script, Class<?> parameterType)
+            XMLLanguageDriver : 该接口最终调用类
+                createSqlSource() : 创建 SqlSource
+                    初始化 SQL 标签处理器
+                    XMLScriptBuilder builder = new XMLScriptBuilder(configuration, script, parameterType);
+                        使用处理器解析
+                        builder.parseScriptNode()
+```
+
+#### 解析 SQL 
+
+```
+    XMLScriptBuilder
+        parseScriptNode() : 解析 SQL 语句
+            解析select、insert、update、delete 标签中的 SQL 语句，最终将解析到的 SqlNode 封装到 MixedSqlNode 中的 List 集合中
+		    将带有 ${} SQL信息封装到 TextSqlNode
+		    将带有 #{} SQL信息封装到 StaticTextSqlNode
+		    将动态 SQL 标签中的 SQL 信息分别封装到不同的 SqlNode 
+            MixedSqlNode rootSqlNode = parseDynamicTags(context);
+                SQL 文本内容封装，判断是否动态。
+                TextSqlNode textSqlNode = new TextSqlNode(data);
+```        
+
+#### SQL 文本分词解析
+
+```
+    TextSqlNode
+        isDynamic()
+            解析 SQL 文本，具体对 #{} 和 ${} 的处理，交给 TokenHandler 子类处理
+            GenericTokenParser parser = createParser(checker);
+                parse(String text) : 解析 #{}、${} 
+                    handler.handleToken(expression.toString()) 
+
+```
+
+## SqlSource 创建流程
+
+#### XMLStatementBuilder 解析 parseStatementNode() 创建
+
+```
+    创建 SqlSource，解析 SQL，封装 SQL 语句（未参数绑定）和入参信息
+    SqlSource sqlSource = langDriver.createSqlSource(configuration, context, parameterTypeClass);
+        LanguageDriver 接口 createSqlSource() 方法
+            XMLLanguageDriver 调用该实现类实现创建 SqlSource
+                XMLScriptBuilder
+                    parseScriptNode()
+                        parseDynamicTags(context) : context 是解析到的 CRUD 标签，
+                        最终解析到 SqlNode 封装到 MixedSqlNode 的 List集合。具体可以看 [解析 SQL]
+                            textSqlNode.isDynamic() 
+                                parse() : 调用 ParameterMappingTokenHandler 的 handleToken() 最终创建 ParameterMapping 对象，
+                                使用构造方法封装 SqlSource（最后的实例为 StaticSqlSource）。
+                                     
 ```
