@@ -1,5 +1,8 @@
 package io.stayhungrystayfoolish.domain;
 
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+
 import java.io.Serializable;
 import java.util.Objects;
 

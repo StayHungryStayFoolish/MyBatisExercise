@@ -106,6 +106,7 @@ public class XMLScriptBuilder extends BaseBuilder {
             } else if (child.getNode().getNodeType() == Node.ELEMENT_NODE) { // issue #628
                 String nodeName = child.getNode().getNodeName();
                 // 动态SQL标签处理器
+                // init() 方法生成实例
                 NodeHandler handler = nodeHandlerMap.get(nodeName);
                 if (handler == null) {
                     throw new BuilderException("Unknown element <" + nodeName + "> in SQL statement.");
