@@ -107,6 +107,8 @@
                         最终解析到 SqlNode 封装到 MixedSqlNode 的 List集合。具体可以看 [解析 SQL]
                             textSqlNode.isDynamic() 
                                 parse() : 调用 ParameterMappingTokenHandler 的 handleToken() 最终创建 ParameterMapping 对象，
-                                使用构造方法封装 SqlSource（最后的实例为 StaticSqlSource）。
+                                使用构造方法封装 SqlSource
+                                （最后的实例为 StaticSqlSource，BoundSql 存储在里边。BoundSql中要存储SQL语句的一个载体，
+                                 SqlSource的SQL语句，最终都会存 储到该SqlSource实现类DynamicSqlSource、RawSqlSource 中）。
                                      
 ```
