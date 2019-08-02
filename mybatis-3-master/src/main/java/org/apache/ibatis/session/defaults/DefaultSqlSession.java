@@ -200,6 +200,8 @@ public class DefaultSqlSession implements SqlSession {
 	public int update(String statement, Object parameter) {
 		try {
 			dirty = true;
+			// 根据 statement 获取的 MappedStatement 的 statementType 决定在  RoutingStatementHandler
+			// 的构造器中使用 switch 生成具体的 SimpleStatementHandler、PreparedStatementHandler、CallableStatementHandler
 			MappedStatement ms = configuration.getMappedStatement(statement);
 			return executor.update(ms, wrapCollection(parameter));
 		} catch (Exception e) {

@@ -25,7 +25,8 @@ public class PersonDaoImpl implements PersonDao {
     @Override
     public Long createPerson(Person person) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
-        // sqlsession接口，开发人员使用它对数据库进行增删改查操作
+        // sqlSession 接口，开发人员使用它对数据库进行增删改查操作
+        // sqlSession 调用 Executor 执行，在 Configuration 中默认的 ExecutorType 是 SIMPLE
         int id = sqlSession.insert(NAMESPACE.concat(CREATE_PERSON), person);
         sqlSession.commit();
         return person.getId();
