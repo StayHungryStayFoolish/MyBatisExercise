@@ -18,7 +18,7 @@ public class TestNativeMyBatis {
     private SqlSessionFactory sqlSessionFactory;
 
     @Before
-    public void init() throws Exception{
+    public void init() throws Exception {
         // 加载全局配置文件（同时把映射文件也加载了）
         String resource = "SqlMapConfig.xml";
         InputStream inputStream = Resources.getResourceAsStream(resource);

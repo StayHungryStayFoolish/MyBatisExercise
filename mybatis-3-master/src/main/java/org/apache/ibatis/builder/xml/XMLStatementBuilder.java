@@ -77,6 +77,7 @@ public class XMLStatementBuilder extends BaseBuilder {
         // 获取结果映射类型
         String resultType = context.getStringAttribute("resultType");
         String lang = context.getStringAttribute("lang");
+        // 在 Configuration 无参构造中，初始化默认了 XMLLanguageDriver
         LanguageDriver langDriver = getLanguageDriver(lang);
 
         // 别名处理，获取返回值对应的Java类型

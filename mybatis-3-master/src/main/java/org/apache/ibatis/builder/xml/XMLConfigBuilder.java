@@ -101,6 +101,7 @@ public class XMLConfigBuilder extends BaseBuilder {
       throw new BuilderException("Each XMLConfigBuilder can only be used once.");
     }
     parsed = true;
+    // parser.evalNode() 构建 XNode 时，在构造方法内调用了 parseAttributes()，然后通过 PropertyParser.parse 方法构造了 VariableTokenHandler 实例。
     // parser.evalNode("/configuration")：通过XPATH解析器，解析configuration根节点
     // 从 <configuration> 根节点开始解析，最终将解析出的内容封装到Configuration对象中
     parseConfiguration(parser.evalNode("/configuration"));

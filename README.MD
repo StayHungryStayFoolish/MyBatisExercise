@@ -112,3 +112,9 @@
                                  SqlSource的SQL语句，最终都会存 储到该SqlSource实现类DynamicSqlSource、RawSqlSource 中）。
                                      
 ```
+
+## BoundSql
+
+#### BaseStatementHandler 构造方法实现
+    
+   

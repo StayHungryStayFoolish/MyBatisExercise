@@ -45,6 +45,7 @@ public class SimpleExecutor extends BaseExecutor {
         Statement stmt = null;
         try {
             Configuration configuration = ms.getConfiguration();
+            // 在父类 BaseStatementHandler 初始化 BoundSql，此时 sql 语句为 ?,? 并携带 List<ParameterMapping> 的请求参数
             StatementHandler handler = configuration.newStatementHandler(this, ms, parameter, RowBounds.DEFAULT, null,
                     null);
             stmt = prepareStatement(handler, ms.getStatementLog());

@@ -43,6 +43,7 @@ public class RoutingStatementHandler implements StatementHandler {
         delegate = new SimpleStatementHandler(executor, ms, parameter, rowBounds, resultHandler, boundSql);
         break;
       case PREPARED:
+        // 在父类 BaseStatementHandler 初始化 BoundSql，此时 sql 语句为 ?,? 并携带 List<ParameterMapping> 的请求参数
         delegate = new PreparedStatementHandler(executor, ms, parameter, rowBounds, resultHandler, boundSql);
         break;
       case CALLABLE:
