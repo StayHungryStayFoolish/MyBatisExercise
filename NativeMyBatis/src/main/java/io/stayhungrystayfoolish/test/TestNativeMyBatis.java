@@ -4,7 +4,6 @@ import io.stayhungrystayfoolish.dao.PersonDao;
 import io.stayhungrystayfoolish.dao.impl.PersonDaoImpl;
 import io.stayhungrystayfoolish.domain.Person;
 import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Before;
