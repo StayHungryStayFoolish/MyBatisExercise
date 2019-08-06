@@ -116,5 +116,7 @@
 ## BoundSql
 
 #### BaseStatementHandler 构造方法实现
+
+![SqlSessionFactory 与 SqlSource 流程](https://github.com/StayHungryStayFoolish/MyBatisExercise/blob/master/SqlSessionFactory%E5%92%8CSqlSource%E5%88%9B%E5%BB%BA.png)
     
    
